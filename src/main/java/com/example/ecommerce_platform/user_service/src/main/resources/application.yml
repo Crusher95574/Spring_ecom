@@ -1,6 +1,6 @@
 spring:
   application:
-    name: user-service
+    name: user_service
   config:
     import: optional:configserver:http://localhost:8888  # Imports configuration from the Config Server
 
