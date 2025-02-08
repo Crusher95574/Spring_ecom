@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api_gateway
+  cloud:
+    gateway:
+      routes:
+        - id: user_service
+          uri: lb://user_service
+          predicates:
+            - Path=/users/**
+            # You can add more routes here for other services (e.g., product-service, order-service)
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
