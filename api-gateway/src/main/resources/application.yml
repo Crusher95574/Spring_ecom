@@ -3,12 +3,12 @@ server:
 
 spring:
   application:
-    name: api_gateway
+    name: api-gateway
   cloud:
     gateway:
       routes:
-        - id: user_service
-          uri: lb://user_service
+        - id: user-service
+          uri: lb://user-service
           predicates:
             - Path=/users/**
             # You can add more routes here for other services (e.g., product-service, order-service)
