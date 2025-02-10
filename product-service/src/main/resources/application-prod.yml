@@ -1,0 +1,22 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+# Data source configuration using MySQL for production
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/productdb?useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: prod_user
+    password: prod_password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+# In production, you might not need the H2 console
+
+  h2:
+    console:
+      enabled: false
