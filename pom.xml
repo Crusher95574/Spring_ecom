@@ -14,6 +14,7 @@
 
 	<modules>
 		<module>user-service</module>
+		<module>product-service</module>
 	</modules>
 
 	<!-- Inherit common settings from Spring Boot -->
