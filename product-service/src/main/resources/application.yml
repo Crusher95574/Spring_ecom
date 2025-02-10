@@ -4,9 +4,6 @@ spring:
   profiles:
     active: dev
 
-server:
-  port: 8080
-
 logging:
   level:
     root: INFO

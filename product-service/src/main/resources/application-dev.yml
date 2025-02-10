@@ -6,7 +6,7 @@ spring:
 # Data source configuration using a file-based H2 database
 
   datasource:
-    url: jdbc:h2:file:./data/proddb;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:file:./data/proddb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
     username: sa
     password:
@@ -21,3 +21,6 @@ spring:
     console:
       enabled: true
       path: /h2-console
+
+server:
+  port: 8085
