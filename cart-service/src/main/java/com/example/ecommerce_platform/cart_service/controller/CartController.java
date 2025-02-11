@@ -28,10 +28,15 @@ public class CartController {
 
     // Add an item to the cart for a given user
     @PostMapping("/{userId}/items")
-    public ResponseEntity<Cart> addItem(@PathVariable String userId,@Valid @RequestBody CartItem item){
-        Cart cart = cartService.addNewItemToCart(userId, item);
-        return ResponseEntity.ok(cart);
+    public ResponseEntity<?> addItem(@PathVariable String userId, @Valid @RequestBody CartItem item) {
+        try {
+            Cart cart = cartService.addNewItemToCart(userId, item);
+            return ResponseEntity.ok(cart);
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        }
     }
+
 
     // Update an existing cart item for a given user
     @PutMapping("/{userId}/items/{itemId}")
@@ -47,9 +52,23 @@ public class CartController {
         return ResponseEntity.ok(cart);
     }
 
+    // Endpoint to decrease the quantity of an item in the cart
+    @PutMapping("/{userId}/items/{itemId}/decrease/{amount}")
+    public ResponseEntity<?> decreaseItemQuantity(
+            @PathVariable String userId,
+            @PathVariable String itemId,
+            @PathVariable int amount) {
+        try {
+            Cart updatedCart = cartService.decreaseItemQuantity(userId, itemId, amount);
+            return ResponseEntity.ok(updatedCart);
+        } catch (RuntimeException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        }
+    }
+
     // Remove an item from the cart for a given user
     @DeleteMapping("/{userId}/items/{itemId}")
-    public ResponseEntity<?> removeItem(@PathVariable String userId, @PathVariable Long itemId) {
+    public ResponseEntity<?> removeItem(@PathVariable String userId, @PathVariable String itemId) {
         return cartService.removeItemFromCart(userId, itemId)
                 .<ResponseEntity<?>>map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -64,4 +83,6 @@ public class CartController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body("Cart not found for user: " + userId));
     }
+
+
 }

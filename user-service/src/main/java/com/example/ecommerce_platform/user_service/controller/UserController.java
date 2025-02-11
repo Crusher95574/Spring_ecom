@@ -2,6 +2,7 @@ package com.example.ecommerce_platform.user_service.controller;
 
 import com.example.ecommerce_platform.user_service.model.User;
 import com.example.ecommerce_platform.user_service.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +13,12 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired
     private UserService userService;
 
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers(){
@@ -29,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> createNewUser(@RequestBody User user){
+    public ResponseEntity<User> createNewUser(@Valid @RequestBody User user){
         User user1 = userService.createUser(user);
         return ResponseEntity.ok(user1);
     }

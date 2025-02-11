@@ -25,6 +25,7 @@ public class CartItem {
     @NotNull(message = "Product ID is required")
     private String productId;
 
+    @NotNull(message = "Product name is required")
     private String productName;
 
     @NotNull(message = "Quantity is required")

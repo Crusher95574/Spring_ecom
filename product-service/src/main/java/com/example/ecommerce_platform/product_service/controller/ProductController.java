@@ -12,8 +12,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-    @Autowired
+
     private ProductService productService;
+    @Autowired
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     //Get product
     @GetMapping
