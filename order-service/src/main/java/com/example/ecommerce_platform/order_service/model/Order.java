@@ -26,13 +26,16 @@ public class Order {
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
+    @NotBlank(message = "User ID is required")
+    @Column(name = "user_id") // Explicitly map to a column called "user_id"
+    private String userId;
+
     @NotBlank(message = "Order status is required")
     private String status; // For example: PENDING, COMPLETED, CANCELLED
 
     @NotNull(message = "Order date is required")
     private LocalDateTime orderDate;
 
-    @NotNull(message = "Price is required")
     @DecimalMin(value = "0.0", inclusive = true, message = "Price must be non-negative")
     private Double totalAmount;
 

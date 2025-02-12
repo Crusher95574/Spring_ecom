@@ -1,9 +1,11 @@
 package com.example.ecommerce_platform.order_service.controller;
 
+import com.example.ecommerce_platform.order_service.dto.OrderStatusUpdateDTO;
 import com.example.ecommerce_platform.order_service.model.Order;
 import com.example.ecommerce_platform.order_service.model.OrderItem;
 import com.example.ecommerce_platform.order_service.service.OrderService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +17,7 @@ import java.util.List;
 public class OrderController {
 
     private final OrderService orderService;
-
+    @Autowired
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
     }
@@ -44,9 +46,12 @@ public class OrderController {
 
     // Update order status (e.g., for cancellation or completion)
     @PutMapping("/{orderId}/status")
-    public ResponseEntity<?> updateOrderStatus(@PathVariable String orderId, @RequestBody String status) {
+    public ResponseEntity<?> updateOrderStatus(@PathVariable String orderId,
+                                               @Valid @RequestBody OrderStatusUpdateDTO orderStatusUpdateDTO) {
+        // The DTO's status field will be bound directly from the JSON payload
+        String sanitizedStatus = orderStatusUpdateDTO.getStatus().trim();
         try {
-            Order updatedOrder = orderService.updateOrderStatus(orderId, status);
+            Order updatedOrder = orderService.updateOrderStatus(orderId, sanitizedStatus);
             return ResponseEntity.ok(updatedOrder);
         } catch (RuntimeException ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
