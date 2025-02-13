@@ -16,6 +16,6 @@ spring:
             enable: true
 
 twilio:
-  accountSid: AC47361469a70fb78c7dc086f43000709c
-  authToken: 1b07a6c090f17b4c6e879f3235122457
-  fromPhone: +16072529017
+  accountSid: ${TWILIO_ACCOUNT_SID:}
+  authToken: ${TWILIO_AUTH_TOKEN:}
+  fromPhone: ${TWILIO_FROM_PHONE:}
