@@ -3,3 +3,19 @@ spring:
     name: notification-service
   profiles:
     active: dev
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: crusher3846@gmail.com
+    password: evvr fecj znyv hlwe
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+twilio:
+  accountSid: AC47361469a70fb78c7dc086f43000709c
+  authToken: 1b07a6c090f17b4c6e879f3235122457
+  fromPhone: +16072529017

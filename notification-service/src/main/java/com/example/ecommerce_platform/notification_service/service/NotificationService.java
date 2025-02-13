@@ -12,32 +12,37 @@ import java.util.Optional;
 @Service
 public class NotificationService {
     private final NotificationRepository notificationRepository;
+    private EmailService emailService;
+    private SmsService smsService;
 
     @Autowired
-    public NotificationService(NotificationRepository notificationRepository) {
+    public NotificationService(NotificationRepository notificationRepository, EmailService emailService, SmsService smsService) {
         this.notificationRepository = notificationRepository;
+        this.emailService = emailService;
+        this.smsService = smsService;
     }
+
+
+
 
     // Simulate sending a notification and save the record
     public Notification sendNotification(Notification notification){
-        // Set the creation date if not provided
         if (notification.getCreatedDate() == null) {
             notification.setCreatedDate(LocalDateTime.now());
         }
-
-        // Simulate sending logic
-        // For example, if it's an email, you might integrate with SendGrid, etc.
-        // Here, we simply set the status to SENT. In case of failure, set status to FAILED and record the error.
         try {
-            // Simulate sending logic (this is where you integrate with an external service)
-            // For demonstration, assume sending is always successful.
+            if ("EMAIL".equalsIgnoreCase(notification.getType())) {
+                emailService.sendSimpleEmail(notification.getRecipient(), notification.getSubject(), notification.getMessage());
+            }else if ("SMS".equalsIgnoreCase(notification.getType())) {
+                smsService.sendSms(notification.getRecipient(), notification.getMessage());
+            }
+            // You can integrate SMS logic below if needed.
             notification.setStatus("SENT");
             notification.setErrorMessage(null);
         } catch (Exception ex) {
             notification.setStatus("FAILED");
             notification.setErrorMessage(ex.getMessage());
         }
-
         return notificationRepository.save(notification);
     }
 
