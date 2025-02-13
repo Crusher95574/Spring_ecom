@@ -1,29 +1,48 @@
 package com.example.ecommerce_platform.notification_service.service;
 
+import com.example.ecommerce_platform.notification_service.config.TwilioConfig;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
-import org.springframework.beans.factory.annotation.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import jakarta.annotation.PostConstruct;
 
 @Service
 public class SmsService {
 
-    @Value("${twilio.accountSid}")
-    private String accountSid;
+    private static final Logger logger = LoggerFactory.getLogger(SmsService.class);
+    private final TwilioConfig twilioConfig;
 
-    @Value("${twilio.authToken}")
-    private String authToken;
+    public SmsService(TwilioConfig twilioConfig) {
+        this.twilioConfig = twilioConfig;
+    }
 
-    @Value("${twilio.fromPhone}")
-    private String fromPhone;
+    @PostConstruct
+    public void init() {
+        if (twilioConfig.getAccountSid() == null ||
+                twilioConfig.getAuthToken() == null ||
+                twilioConfig.getFromPhone() == null) {
+            logger.error("Twilio configuration properties are not set properly!");
+            throw new IllegalStateException("Twilio configuration properties are not set properly!");
+        }
+        logger.info("Twilio configuration loaded successfully.");
+    }
 
     public void sendSms(String to, String text) {
-        Twilio.init(accountSid, authToken);
-        Message.creator(
-                new PhoneNumber(to),
-                new PhoneNumber(fromPhone),
-                text
-        ).create();
+        try {
+            Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
+            System.out.println(twilioConfig.getAccountSid());
+            Message message = Message.creator(
+                    new PhoneNumber(to),
+                    new PhoneNumber(twilioConfig.getFromPhone()),
+                    text
+            ).create();
+            logger.info("SMS sent successfully, SID: {}", message.getSid());
+        } catch (Exception ex) {
+            logger.error("Error sending SMS to {}: {}", to, ex.getMessage(), ex);
+            throw ex;
+        }
     }
 }

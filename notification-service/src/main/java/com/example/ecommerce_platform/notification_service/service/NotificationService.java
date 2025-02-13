@@ -22,9 +22,6 @@ public class NotificationService {
         this.smsService = smsService;
     }
 
-
-
-
     // Simulate sending a notification and save the record
     public Notification sendNotification(Notification notification){
         if (notification.getCreatedDate() == null) {
