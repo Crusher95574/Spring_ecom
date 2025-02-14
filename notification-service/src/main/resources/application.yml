@@ -15,10 +15,8 @@ spring:
           starttls:
             enable: true
 
-twilio:
-  accountSid: ${TWILIO_ACCOUNT_SID}
-  authToken: ${TWILIO_AUTH_TOKEN}
-  fromPhone: ${TWILIO_FROM_PHONE}
+config:
+  import: "optional:file:./config/application-secrets.yml"
 
 logging:
   level:
