@@ -3,3 +3,23 @@ spring:
     name: notification-service
   profiles:
     active: dev
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: crusher3846@gmail.com
+    password: evvr fecj znyv hlwe
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+twilio:
+  accountSid: ${TWILIO_ACCOUNT_SID}
+  authToken: ${TWILIO_AUTH_TOKEN}
+  fromPhone: ${TWILIO_FROM_PHONE}
+
+logging:
+  level:
+    org.springframework.security: DEBUG
