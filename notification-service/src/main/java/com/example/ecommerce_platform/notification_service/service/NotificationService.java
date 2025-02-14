@@ -53,4 +53,37 @@ public class NotificationService {
         return notificationRepository.findByRecipient(recipient);
     }
 
+    // List all notifications (with optional filtering logic if needed)
+    public List<Notification> getAllNotifications() {
+        return notificationRepository.findAll();
+    }
+
+    // Resend a failed notification
+    public Notification resendNotification(String id) {
+        Notification notification = notificationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Notification not found with id " + id));
+        if (!"FAILED".equalsIgnoreCase(notification.getStatus())) {
+            throw new RuntimeException("Only notifications with status FAILED can be resent");
+        }
+        // Attempt to resend notification based on its type
+        try {
+            if ("EMAIL".equalsIgnoreCase(notification.getType())) {
+                emailService.sendSimpleEmail(notification.getRecipient(), notification.getSubject(), notification.getMessage());
+            } else if ("SMS".equalsIgnoreCase(notification.getType())) {
+                smsService.sendSms(notification.getRecipient(), notification.getMessage());
+            }
+            notification.setStatus("SENT");
+            notification.setErrorMessage(null);
+        } catch (Exception ex) {
+            notification.setStatus("FAILED");
+            notification.setErrorMessage(ex.getMessage());
+        }
+        return notificationRepository.save(notification);
+    }
+
+    // Delete a notification
+    public void deleteNotification(String id) {
+        notificationRepository.deleteById(id);
+    }
+
 }
