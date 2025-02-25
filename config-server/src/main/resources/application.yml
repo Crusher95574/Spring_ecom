@@ -1,0 +1,39 @@
+server:
+  port: 8888
+
+#spring:
+#  application:
+#    name: config-server
+#  cloud:
+#    config:
+#      server:
+#        bootstrap: false
+#        composite:
+#          - type: git
+#            uri: https://github.com/Crusher95574/ecommerce-config.git
+#            clone-on-start: true
+#            searchPaths: '{application}'
+
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      discovery:
+        service-id: configserver
+        enabled: true
+      server:
+        bootstrap: true
+        git:
+          uri: https://github.com/Crusher95574/ecommerce-config.git
+          clone-on-start: true
+          searchPaths: "user-service.yml"
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+logging:
+  level:
+    org.springframework.cloud.config.server: DEBUG

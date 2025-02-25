@@ -1,10 +1,14 @@
 spring:
   application:
     name: user-service
+#  cloud:
+#    config:
+#      enabled: true
+#      uri: configserver
   profiles:
     active: dev
 #  config:
-#    import: optional:configserver:http://localhost:8888  # Imports configuration from the Config Server
+#    import: configserver # Imports configuration from the Config Server
 
 eureka:
   client:
