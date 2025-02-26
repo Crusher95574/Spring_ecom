@@ -16,19 +16,17 @@ server:
 
 
 spring:
+  config:
+    import: ""
   application:
     name: config-server
   cloud:
     config:
-      discovery:
-        service-id: configserver
-        enabled: true
       server:
-        bootstrap: true
         git:
           uri: https://github.com/Crusher95574/ecommerce-config.git
           clone-on-start: true
-          searchPaths: "user-service.yml"
+#          searchPaths: '{application}'
 eureka:
   client:
     serviceUrl:

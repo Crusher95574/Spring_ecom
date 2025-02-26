@@ -3,12 +3,13 @@ spring:
     name: cart-service
   profiles:
     active: dev
-
-logging:
-  level:
-    root: INFO
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
+  config:
+    import: optional:configserver:http://localhost:8888
+#logging:
+#  level:
+#    root: INFO
+#
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka/

@@ -1,33 +1,33 @@
-#spring:
-#  application:
-#    name: user-service
-#  config:
-#    activate:
-#      on-profile: dev
-## Data source configuration (using in-memory H2 for example)
-#
-#  datasource:
-#    url: jdbc:h2:file:./data/devdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-#    driver-class-name: org.h2.Driver
-#    username: sa
-#    password:
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
-#    database-platform: org.hibernate.dialect.H2Dialect
-#
-## Enable H2 console
-#
-#  h2:
-#    console:
-#      enabled: true
-#      path: /h2-console
-#
-### Disable Eureka connectivity
-##eureka:
-##  client:
-##    register-with-eureka: false
-##    fetch-registry: false
-#
-#server:
-#  port: 8081
+spring:
+  application:
+    name: user-service
+  config:
+    activate:
+      on-profile: dev
+# Data source configuration (using in-memory H2 for example)
+
+  datasource:
+    url: jdbc:h2:file:./data/devdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.H2Dialect
+
+# Enable H2 console
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+## Disable Eureka connectivity
+#eureka:
+#  client:
+#    register-with-eureka: false
+#    fetch-registry: false
+
+server:
+  port: 8081
