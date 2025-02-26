@@ -1,11 +1,11 @@
-spring:
-  profiles: prod
-  datasource:
-    url: jdbc:h2:file:~/data/devdb;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: prod_user
-    password: prod_password
-  jpa:
-    hibernate:
-      ddl-auto: update
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+#spring:
+#  profiles: prod
+#  datasource:
+#    url: jdbc:h2:file:~/data/devdb;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: prod_user
+#    password: prod_password
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    database-platform: org.hibernate.dialect.MySQL8Dialect

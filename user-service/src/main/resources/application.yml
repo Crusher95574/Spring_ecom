@@ -1,14 +1,22 @@
+#server:
+#  port: 8081
 spring:
   application:
     name: user-service
   profiles:
     active: dev
-#  config:
-#    import: optional:configserver:http://localhost:8888  # Imports configuration from the Config Server
+#  cloud:
+#    config:
+#      enabled: false
+  config:
+    import: optional:configserver:http://localhost:8888
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka/
+#logging:
+#  level:
+#    org.springframework.cloud.config: DEBUG
 
 

@@ -19,6 +19,8 @@
 		<module>order-service</module>
 		<module>notification-service</module>
 		<module>api-gateway</module>
+		<module>config-server</module>
+		<module>payment-service</module>
 	</modules>
 
 	<!-- Inherit common settings from Spring Boot -->
