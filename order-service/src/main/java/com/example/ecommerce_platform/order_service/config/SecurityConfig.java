@@ -24,8 +24,8 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 // Disable CSRF (suitable for stateless REST APIs)
                 .csrf(csrf -> csrf.disable())
-                // Set session management to stateless
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                // Set session management to stateless
+//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // Allow the H2 console to be displayed in a frame from the same origin
                 .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
                 // Define URL-based authorization rules
