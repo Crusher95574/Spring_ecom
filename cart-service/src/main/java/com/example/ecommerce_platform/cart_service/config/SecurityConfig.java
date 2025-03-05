@@ -19,38 +19,36 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // Enable CORS using our configuration below
+                // Enable CORS using our custom configuration below
                 .cors(Customizer.withDefaults())
-                // Disable CSRF for stateless REST APIs (for development)
+                // Disable CSRF (suitable for stateless REST APIs)
                 .csrf(csrf -> csrf.disable())
-                // Allow H2 console to be displayed in a frame from the same origin
+//                // Set session management to stateless
+//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                // Allow the H2 console to be displayed in a frame from the same origin
                 .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
                 // Define URL-based authorization rules
                 .authorizeHttpRequests(authz -> authz
-                        // Permit access to Cart endpoints, H2 console, and favicon
-                        .requestMatchers("/cart/**", "/h2-console/**", "/favicon.ico").permitAll()
-                        // Require authentication for any other request
+                        .requestMatchers("/h2-console/**", "/favicon.ico").permitAll()
+                        // Permit all access to order endpoints for simplicity; adjust as needed for production
+                        .requestMatchers("/cart/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 // Use HTTP Basic authentication for endpoints requiring auth
                 .httpBasic(Customizer.withDefaults());
+
         return http.build();
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // Allow all origins (for development; restrict in production)
         configuration.setAllowedOrigins(List.of("*"));
-        // Allow standard HTTP methods
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        // Allow all headers
         configuration.setAllowedHeaders(List.of("*"));
-        // Allow credentials such as cookies and authorization headers
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        // Apply the above configuration to all endpoints
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }

@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableDiscoveryClient
 public class CartServiceApplication {
     public static void main(String[] args){
-        SpringApplication.run(CartServiceApplication.class);
+        SpringApplication.run(CartServiceApplication.class,args);
     }
 }

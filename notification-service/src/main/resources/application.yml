@@ -24,7 +24,7 @@ twilio:
 #  level:
 #    org.springframework.security: DEBUG
 #
-#eureka:
-#  client:
-#    service-url:
-#      defaultZone: http://localhost:8761/eureka/
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/

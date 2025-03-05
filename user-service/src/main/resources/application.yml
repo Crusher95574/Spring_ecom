@@ -1,5 +1,5 @@
-#server:
-#  port: 8081
+server:
+  port: 8081
 spring:
   application:
     name: user-service
@@ -10,11 +10,11 @@ spring:
 #      enabled: false
   config:
     import: optional:configserver:http://localhost:8888
-
-#eureka:
-#  client:
-#    service-url:
-#      defaultZone: http://localhost:8761/eureka/
+#
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/
 #logging:
 #  level:
 #    org.springframework.cloud.config: DEBUG

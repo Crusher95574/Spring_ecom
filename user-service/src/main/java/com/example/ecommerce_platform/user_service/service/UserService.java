@@ -17,6 +17,7 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     public List<User> getAllUsers(){
        return  userRepository.findAll();
     }
